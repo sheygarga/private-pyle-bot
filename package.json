@@ -1,0 +1,11 @@
+{
+    "name": "Private-Pyle",
+    "version": "1.0.0",
+    "description": "Just trying my best to write a bot",
+    "main": "bot.js",
+    "author": "BarneyStinsbro",
+    "dependencies": {
+        "discord.io": "^2.5.3",
+        "winston": "^2.4.1"
+    }
+}
