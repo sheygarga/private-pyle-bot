@@ -55,11 +55,20 @@ client.on("message", (message) => {
         }
         
         today = mm + '/' + dd + '/' + yyyy;
-        console.log(today);
-        let city =args[0];
-        let state = args[1];
+        //console.log(today);
+        
+        var city = args.slice(0, -1);
+        console.log(args);
+        console.log(city);
+        console.log(args.length-1);
+        var state = args.slice(-1);
         var request = require("request");
-        var query_url = "http://api.usno.navy.mil/rstt/oneday?date="+today+"&loc="+city+state
+        var city_string = "";
+        var query_url = "http://api.usno.navy.mil/rstt/oneday?date="+today+"&loc="
+        for (i = 0; i < city.length; i++){
+            query_url+=city[i]+'%20'
+        }
+        query_url += state
         console.log(city);
         console.log(state);
         console.log(query_url);
