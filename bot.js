@@ -77,4 +77,4 @@ client.on("guildMemberAdd", (member) => {
 });
 
 client.on("error", (e) => console.error(e));
-client.login("NDI4Mjk5OTY2MTA1MjU1OTQ3.DZxMBQ.MI2TkzCEOp8oKeU_pgphfsNH8hk");
+client.login("");
