@@ -5,6 +5,13 @@ const prefix = "!";
 
 client.on("ready", () => {
     console.log("I am ready!");
+    client.user.setPresence({
+        game: {
+            name: 'with himself'
+        },
+        status: 'online'
+    });
+
 });
 
 client.on("message", (message) => {
@@ -45,37 +52,46 @@ client.on("message", (message) => {
         var dd = today.getDate();
         var mm = today.getMonth() + 1; //January is 0!
         var yyyy = today.getFullYear();
-        
+
         if (dd < 10) {
             dd = '0' + dd
         }
-        
+
         if (mm < 10) {
             mm = '0' + mm
         }
-        
+
         today = mm + '/' + dd + '/' + yyyy;
         //console.log(today);
-        
+
         var city = args.slice(0, -1);
         console.log(args);
         console.log(city);
-        console.log(args.length-1);
+        console.log(args.length - 1);
         var state = args.slice(-1);
         var request = require("request");
         var city_string = "";
-        var query_url = "http://api.usno.navy.mil/rstt/oneday?date="+today+"&loc="
-        for (i = 0; i < city.length; i++){
-            query_url+=city[i]+'%20'
+        var query_url = "http://api.usno.navy.mil/rstt/oneday?date=" + today + "&loc="
+        for (i = 0; i < city.length; i++) {
+            query_url += city[i] + '%20'
         }
         query_url += state
         console.log(city);
         console.log(state);
         console.log(query_url);
-        request.get(query_url, (error, response,body) =>{
+        request.get(query_url, (error, response, body) => {
             let json = JSON.parse(body);
             message.reply(` the moon phase closest for today in ${json.city},${json.state} is ${json.closestphase.phase} and that was on ${json.closestphase.date}. The current phase is ${json.curphase} at ${json.fracillum}`)
         })
+    }
+    if (command === "streaming"){
+        if (message.member.presence.game.streaming === true && message.channel.name == 'streams') {
+            message(`Hey everyone, ${message.member.username} is streaming, check it out at ${message.member.presence.game.url}!`)
+
+        }
+        else {
+            message(`Sorry, can't do that for you`)
+        }
     }
 
 });
@@ -84,6 +100,9 @@ client.on("guildMemberAdd", (member) => {
     console.log(`New User "${member.user.username}" has joined "${member.guild.name}"`);
     member.guild.channels.get("heythere").send(`"${member.user.username}" has joined this server`);
 });
+
+
+
 
 client.on("error", (e) => console.error(e));
 client.login("NDI4Mjk5OTY2MTA1MjU1OTQ3.DZxMBQ.MI2TkzCEOp8oKeU_pgphfsNH8hk");
